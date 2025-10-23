@@ -1,6 +1,10 @@
 import { useDispatch } from "react-redux";
 import { Trash2, Plus, Minus, ShoppingCart } from "lucide-react";
-import { removeFromCart } from "../redux/Cart/cartSlice";
+import {
+  addToCart,
+  removeFromCart,
+  decreaseQuantity,
+} from "../redux/Cart/cartSlice";
 
 const CartBox = ({ data }) => {
   const dispatch = useDispatch();
@@ -41,14 +45,50 @@ const CartBox = ({ data }) => {
 
           {/* Bottom Section - Quantity and Price */}
           <div className="flex justify-between items-center mt-2">
+            <div className="text-right w-full">
+              <p className="text-xs text-gray-500">Total</p>
+              <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                ${data.price * data.quantity}
+              </p>
+
+              {/* Quantity Controls */}
+              <div className="flex items-center justify-center gap-2 mt-2">
+                <button
+                  onClick={() => dispatch(decreaseQuantity(data.id))}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white transition-all"
+                >
+                  −
+                </button>
+
+                <span className="min-w-[40px] text-center font-semibold text-gray-800">
+                  {data.quantity}
+                </span>
+
+                <button
+                  onClick={() => dispatch(addToCart(data))}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white transition-all"
+                >
+                  +
+                </button>
+              </div>
+
+              <p className="mt-1 text-sm text-gray-500">Quantity</p>
+            </div>
+          </div>
+
+          {/* <div className="flex justify-between items-center mt-2">
             <div className="text-right">
               <p className="text-xs text-gray-500">Total</p>
               <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 ${data.price * data.quantity}
               </p>
+              <div className="flex items-center">
+                <button onClick={() => dispatch(addToCart(data))} className="mx-2">+</button>
+                <button onClick={() => dispatch(decreaseQuantity(data.id))} className="mx-2">-</button>
+              </div>
               <p>Quantity: {data.quantity}</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
