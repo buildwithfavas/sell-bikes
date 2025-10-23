@@ -1,0 +1,3 @@
+- auth issue
+- error handling
+- feature quantity update
